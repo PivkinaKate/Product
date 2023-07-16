@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ShopRepositoryTest {
+ public class ShopRepositoryTest {
 
 
     @Test
@@ -9,16 +9,16 @@ public class ShopRepositoryTest {
     public void testDeleteProduct() {
 
         ShopRepository repo = new ShopRepository();
-        Product product1 = new Product(id:1, title:"футболка", price:10_000);
-        Product product2 = new Product(id:2, title:"шорты", price:20_000);
-        Product product3 = new Product(id:3, title:"джинсы", price:30_000);
+        Product product1 = new Product(1, "юбка", 10_000);
+        Product product2 = new Product(2, "шорты", 20_000);
+        Product product3 = new Product(3, "джинсы", 30_000);
 
         repo.add(product1);
         repo.add(product2);
         repo.add(product3);
-        repo.remove(id:3);
+        repo.remove(5);
         Product[] actual = repo.findAll();
-        Product[] expected = {product1, product2};
+        Product[] expected = {product2, product3};
 
         Assertions.assertArrayEquals(expected, actual);
 
@@ -31,16 +31,37 @@ public class ShopRepositoryTest {
     public void testRemoveWhenProductNoExist() {
         ShopRepository repo = new ShopRepository();
 
-        Product product1 = new Product(id:1, title:"футболка", price:10_000);
-        Product product2 = new Product(id:2, title:"шорты", price:20_000);
-        Product product3 = new Product(id:3, title:"джинсы", price:30_000);
+        Product product1 = new Product(1, "юбка", 10_000);
+        Product product2 = new Product(2, "шорты", 20_000);
+        Product product3 = new Product(3, "джинсы", 30_000);
 
         repo.add(product1);
         repo.add(product2);
         repo.add(product3);
 
         Assertions.assertThrows(NotFoundException.class,
-                () -> repo.remove(id:4)
+                () -> repo.remove(5)
         );
     }
+
+     @Test
+
+     public void testDeleteExistProduct() {
+
+         ShopRepository repo = new ShopRepository();
+         Product product1 = new Product(1, "юбка", 10_000);
+         Product product2 = new Product(2, "шорты", 20_000);
+         Product product3 = new Product(3, "джинсы", 30_000);
+
+         repo.add(product1);
+         repo.add(product2);
+         repo.add(product3);
+         repo.remove(3);
+         Product[] actual = repo.findAll();
+         Product[] expected = {product1, product2};
+
+         Assertions.assertArrayEquals(expected, actual);
+
+
+     }
 }

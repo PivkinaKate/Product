@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
         repo.add(product1);
         repo.add(product2);
         repo.add(product3);
-        repo.remove(5);
+        repo.remove(1);
         Product[] actual = repo.findAll();
         Product[] expected = {product2, product3};
 
